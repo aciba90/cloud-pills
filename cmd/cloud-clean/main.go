@@ -1,14 +1,15 @@
 package main
-import (
-    "context"
-    "github.com/Azure/azure-sdk-for-go/sdk/azcore"
-    "github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-    "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
-    "log"
-    "os"
-)
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
+)
 
 var (
 	subscriptionID    string
@@ -17,27 +18,27 @@ var (
 )
 
 func main() {
-    fmt.Println("hello world")
-    subscriptionID = os.Getenv("AZURE_SUBSCRIPTION_ID")
-    if len(subscriptionID) == 0 {
+	fmt.Println("hello world")
+	subscriptionID = os.Getenv("AZURE_SUBSCRIPTION_ID")
+	if len(subscriptionID) == 0 {
 		log.Fatal("AZURE_SUBSCRIPTION_ID is not set.")
 	}
-    cred, err := azidentity.NewDefaultAzureCredential(nil)
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	ctx := context.Background()
 
-    resourceGroups, err := listResourceGroup(ctx, cred)
+	resourceGroups, err := listResourceGroup(ctx, cred)
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, resource := range resourceGroups {
 		log.Printf("Deleting Resource Group Name: %s,ID: %s", *resource.Name, *resource.ID)
-        error := deleteResourceGroup(ctx, cred, *resource.Name)
-        if error != nil {
-            log.Fatal(err)
-        }
+		error := deleteResourceGroup(ctx, cred, *resource.Name)
+		if error != nil {
+			log.Fatal(err)
+		}
 	}
 }
 
