@@ -22,7 +22,7 @@ fmt_do:
 
 .PHONY: build
 build: bin
-	go build -o bin/cloud-clean ./cmd/cloud-clean
+	go build -o bin/clean-cloud
 
 bin:
 	@mkdir bin
