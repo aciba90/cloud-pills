@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github/aciba90/clean-cloud/internal/azure"
-	"github/aciba90/clean-cloud/internal/gcp"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/alecthomas/kong"
@@ -24,7 +23,7 @@ func (r *GcpListCmd) Run(ctx *Context) error {
 	if len(projectID) == 0 {
 		log.Fatal("PROJECT_ID is not set.")
 	}
-	gcp.ListAllInstances(projectID)
+	// gcp.ListAllInstances(projectID)
 	return nil
 }
 
